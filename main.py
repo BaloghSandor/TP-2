@@ -11,35 +11,32 @@ from random import randint
 
 boucle_jeu = True
 
-borne_minimale = 0
-borne_maximale = 0
-
-
-def bornes_minimale_et_maximale():
-    """
-    Cette fonction est invoquée au début du jeu afin de permettre à l'utilisateur de choisir les bornes du nombre
-    à trouver. On retourne à la fin le borne minimale et le borne maximale, pour continuer le jeu.
-    """
-    global borne_minimale
-    global borne_maximale
-    borne_minimal = int(input('Choisisez la valeur minimale a deviner : '))
-    borne_maximal = int(input('\nChoisisez la valeur maximale a deviner : '))
-
-
 while boucle_jeu:
-    bornes_minimale_et_maximale()
+
+    borne_minimale = int(input('Donner la valeur minimale à deviner : '))
+    borne_maximale = int(input('Donner la valeur maximale à deviner : '))
+
+    def score():
+        """
+        Cette fonction est invoquée au moment oû le joueur n'a pas réussi leur essaie, afin de compter le nombre
+        de fois que le joueur a essayer, lui montrant son score à la fin du jeu.
+        """
+        global nombre_de_essaies
+        nombre_de_essaies = nombre_de_essaies + 1
+
     valeur_cherche = randint(borne_minimale, borne_maximale)
 
     print('\nVous devez deviner une valeur entre', borne_minimale, 'et', borne_maximale)
 
     valeur_non_trouver = True
     nombre_de_essaies = 0
+
     while valeur_non_trouver:
-        nombre_de_essaies += 1
+        score()
         essaie = int(input('\nEntrez votre essaie : '))
 
         if essaie == valeur_cherche:
-            print('\nBravo! Vous avez trouvez la valeur en', nombre_de_essaies, 'essaies!')
+            print(f'\nBravo! Vous avez trouvez la valeur en {nombre_de_essaies} essaies!')
             recommencer = str(input('\nVoulez-vous recommencer (oui ou non)? '))
 
             if recommencer == 'oui':
